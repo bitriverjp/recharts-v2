@@ -69,6 +69,7 @@ export type CurveType =
 export interface Point {
   x: number;
   y: number;
+  value?: any;
 }
 
 const defined = (p: Point) => p.x === +p.x && p.y === +p.y;
@@ -95,13 +96,14 @@ interface CurveProps {
   baseLine?: number | Array<Point>;
   points?: Array<Point>;
   connectNulls?: boolean;
+  connectNaN?: boolean;
   path?: string;
   pathRef?: (ref: SVGPathElement) => void;
 }
 
 export type Props = Omit<PresentationAttributesWithProps<CurveProps, SVGPathElement>, 'type' | 'points'> & CurveProps;
 
-type GetPathProps = Pick<Props, 'type' | 'points' | 'baseLine' | 'layout' | 'connectNulls'>;
+type GetPathProps = Pick<Props, 'type' | 'points' | 'baseLine' | 'layout' | 'connectNulls' | 'connectNaN'>;
 
 /**
  * Calculate the path of curve. Returns null if points is an empty array.
@@ -113,9 +115,18 @@ export const getPath = ({
   baseLine,
   layout,
   connectNulls = false,
+  connectNaN = false,
 }: GetPathProps): string | null => {
   const curveFactory = getCurveFactory(type, layout);
-  const formatPoints = connectNulls ? points.filter(entry => defined(entry)) : points;
+
+  let formatPoints = points;
+  if (connectNaN) {
+    formatPoints = points.filter(entry => !Number.isNaN(Number(entry.value)));
+  }
+  if (connectNulls) {
+    formatPoints = points.filter(entry => defined(entry));
+  }
+
   let lineFunction;
 
   if (Array.isArray(baseLine)) {

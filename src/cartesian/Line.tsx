@@ -62,6 +62,7 @@ interface LineProps extends InternalLineProps {
   tooltipType?: TooltipType;
   layout?: 'horizontal' | 'vertical';
   connectNulls?: boolean;
+  connectNaN?: boolean;
   hide?: boolean;
 
   // whether have dot in line
@@ -98,6 +99,7 @@ export class Line extends PureComponent<Props, State> {
     xAxisId: 0,
     yAxisId: 0,
     connectNulls: false,
+    connectNaN: false,
     activeDot: true,
     dot: true,
     legendType: 'line',
@@ -383,7 +385,7 @@ export class Line extends PureComponent<Props, State> {
     clipPathId: string,
     props?: { strokeDasharray: string },
   ) {
-    const { type, layout, connectNulls, ref, ...others } = this.props;
+    const { type, layout, connectNulls, connectNaN, ref, ...others } = this.props;
     const curveProps = {
       ...filterProps(others, true),
       fill: 'none',
@@ -394,6 +396,7 @@ export class Line extends PureComponent<Props, State> {
       type,
       layout,
       connectNulls,
+      connectNaN,
     };
 
     return <Curve {...curveProps} pathRef={this.pathRef} />;
