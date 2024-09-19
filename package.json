@@ -1,6 +1,6 @@
 {
-  "name": "recharts",
-  "version": "2.12.7",
+  "name": "@bitriver/recharts-v2",
+  "version": "2.12.7-v7",
   "description": "React charts",
   "main": "lib/index.js",
   "module": "es6/index.js",
@@ -52,15 +52,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/recharts/recharts.git"
+    "url": "git+https://github.com/bitriverjp/recharts-v2.git"
   },
   "author": {
     "name": "recharts group"
   },
   "bugs": {
-    "url": "https://github.com/recharts/recharts/issues"
+    "url": "https://github.com/bitriverjp/recharts-v2/issues"
   },
-  "homepage": "https://github.com/recharts/recharts",
+  "homepage": "https://github.com/bitriverjp/recharts-v2",
   "peerDependencies": {
     "react": "^16.0.0 || ^17.0.0 || ^18.0.0",
     "react-dom": "^16.0.0 || ^17.0.0 || ^18.0.0"
